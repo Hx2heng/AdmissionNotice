@@ -1,0 +1,343 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Hx2">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="Description" content="网页描述" />
+    <meta name="Keywords" content="关键字" />
+    <title>AdmissionNotice</title>
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="css/hm.css">
+    <style>
+    /*loader*/
+    
+    #loader {
+        position: absolute;
+        z-index: 9999;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        color: #00577E;
+        background: #DBF2FF
+    }
+    
+    #loader .loader-wrap {
+        position: absolute;
+        top: 30%;
+        width: 100%
+    }
+    
+    #loader .loader-wrap .progress-bar {
+        position: relative;
+        width: 60%;
+        height: 5px;
+        margin: 10px auto;
+        border-radius: 2px;
+        background: #004367;
+        overflow: hidden;
+    }
+    
+    #loader .loader-wrap .progress-bar .loading-ele {
+        position: absolute;
+        top: -48px;
+        left: 0;
+        transition: left .5s ease;
+    }
+    
+    #loader .loader-wrap .progress-bar .progress-green {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 100%;
+        transition: width .5s ease;
+        border-radius: 2px;
+        background: #0B96E3
+    }
+    
+    #loader .loader-wrap .progress-bar .progress-green-light {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 100%;
+        transition: width .5s ease;
+        border-radius: 2px;
+        background: #8B00BC;
+        border-bottom-left-radius: 100%;
+        border-top-left-radius: 100%;
+        box-shadow: 0 0 10px #8C9EFE;
+    }
+    
+    .mask {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        opacity: .7
+    }
+
+    .loading{position: absolute;top: 50%;left:50%;color:white;-webkit-transform: translate(-50%,-50%);transform: translate(-50%,-50%);}
+
+    .form{width: 640px;height:400px;}
+    .form input[type=text]{font-size: 2em;border:none;padding:20px;border-radius: 5px;box-shadow:  0 0 10px  #006278;text-align: center;}
+    .form label{font-size: 2em;display: block;margin: 20px 0 5px;font-weight: bold;color:#222;}
+    </style>
+    <script>
+    var GCFG = function() { //全局常量,获取方法 eg:GCFG('PATH');
+        var cfgObject = {
+            IMGPATH: '../images/' //资源文件路径
+        };
+        return function(type) {
+            if (!cfgObject[type]) throw new Error(type + ' is not be defind in GCFG.');
+            return cfgObject[type];
+        };
+    }();
+    </script>
+    <style>
+    #container {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        position: relative;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    </style>
+</head>
+
+<body>
+    <!-- loader -->
+    <div id="loader">
+        <div class="loader-wrap">
+            <div class="progress-bar">
+                <img class="loading-ele">
+                <div class="progress-green-light"></div>
+                <div class="progress-green"></div>
+            </div>
+            <p>加载中</p>
+            <p><span class="span" id="loading-txt">0</span></p>
+        </div>
+    </div>
+    <div id="container">
+        <div id="hm-container" style="background-image:url(&quot;images/bg.jpeg&quot;)">
+            <div class="hm-wrap">
+                <div class="hm-page" style="background-image:url(&quot;images/pBg_0.jpeg&quot;)">
+                    <div class="hm-content" style="width: 640px; height: 1010px;">
+                        <div class="hm-el animated rotateIn page1-btn-1" img-scale="1" style="top: 549.349px; left: 213.385px; animation-delay: 1s; animation-iteration-count: 1;"><img src="images/0.png" style="transform: scale(1);"></div>
+                        <div class="hm-el animated flipInX" style="top: 4.20311px; left: 249.307px;">
+                            <p style="color: rgb(255, 255, 255); font-size: 2em;">高粽网</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="hm-page">
+                   <!--  <div class="hm-content" style="width: 640px; height: 1010px;"></div> -->
+                   <div class="loading">
+                   	<p>加载中:<span class="progressing">0</span>%</p>
+                   </div>
+                    <div id="game-wrap">
+                    	<canvas id="game"></canvas>
+                    </div>
+                </div>
+                <div class="hm-page">
+                    <div class="hm-content" style="width: 640px; height: 1010px;">
+                        <div class="hm-el animated flipInX" style="top: 141.559px; left: 16.9014px; animation-iteration-count: 1;"><img src="images/1.png"></div>
+                        <div class="hm-el animated bounceIn" img-scale="1.21" style="top: 633.802px; left: 232.323px; animation-delay: 1.2s; animation-iteration-count: 1;"><img src="images/2.png" style="transform: scale(1.21);"></div>
+                        <div class="hm-el animated bounceIn page3-btn-1" style="top: 636.39px;left: 265.406px; animation-delay: 1.2s; animation-iteration-count: 1;">
+                            <p style="color: rgb(255, 255, 255); font-size: 2em;">马上制作</p>
+                        </div>
+                        <div class="hm-el animated bounceIn" img-scale="1.15" style="top: 327.489px; left: 0px;width:100%; animation-delay: 0.4s; animation-iteration-count: 1;">
+                            <p style="font-size: 3em;width: 100%;text-align: center;">你获得<span class="score">0</span>分</p>
+                        </div>
+                        <div class="hm-el animated bounceIn" style="top: 464.782px; left: 0px;width:100%; animation-delay: 0.8s; animation-iteration-count: 1;">
+                            <p style="color: rgb(255, 0, 0); font-size: 2.5em;width: 100%;text-align: center;" class="info">获得制作录取通知书的机会！</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="hm-page">
+                    <div class="hm-content" style="width: 640px; height: 1010px;">
+                        <div class="hm-el animated bounceIn" style="top: 50.7113px; left: 50.7113px;"><img src="images/3.png"></div>
+                        <div class="hm-el animate bounceIn" style="top: 200.7113px; left: 0px;">
+                        	<form action="" class="form">
+                        		<label for="yname">你的名字</label>
+                        		<input type="text" id="yname">
+                        		<label for="pname">学校省份</label>
+                        		<input type="text" id="pname">
+                        		<label for="sname">学校名字</label>
+                        		<input type="text" id="sname">
+                        		<label for="tname">专业名字</label>
+                        		<input type="text" id="tname">
+                        	</form>
+                        </div>
+                        <div class="hm-el animated bounceIn page4-btn-1" img-scale="1.07" style="top: 874.753px; left: 209.164px; animation-delay: 1.2s; animation-iteration-count: 1;"><img src="images/4.png" style="transform: scale(1.57);"></div>
+                        <div class="hm-el animated bounceIn page4-btn-1" style="top: 877.318px;left: 271.121px; animation-delay: 1.2s; animation-iteration-count: 1;">
+                            <p style="font-size: 2em; color: rgb(255, 255, 255);">提交</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="hm-page">
+                    <div class="hm-content" style="width: 640px; height: 1010px;">
+                        <div class="hm-el animated bounceIn" style="top: 40.1464px; left: 40.1464px;"><img src="images/5.png"></div>
+                        <div class="hm-el animated bounceIn" img-scale="1.66" style="animation-delay: 1.2s; animation-iteration-count: 1; top: 897.933px; left: 223.928px;"><img src="images/6.png" style="transform: scale(1.66);"></div>
+                        <div class="hm-el animated bounceIn" style="animation-delay: 1.2s; animation-iteration-count: 1; top: 887.371px; left: 179.549px;">
+                            <p style="color: rgb(255, 255, 255); font-size: 2em;">分享给朋友一起玩</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="share">
+	<img src="images/share.png" alt="" class="man">
+	<p>点击右上角按钮</p>
+	<p>分享给好友</p>
+</div> -->
+    <script src="js/lazyBones.min.js"></script>
+    <script src="js/AnimationHask.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/canvas.js"></script>
+    <script>
+    //init
+    $('.hm-content').onePage();
+   
+    new lb.Rotate();
+    var getSource = function() {
+        var sourceArr = [
+            "images/bg.jpeg", "images/pBg_0.jpeg", "images/0.png", "images/1.png", "images/2.png", "images/3.png", "images/4.png", "images/5.png", "images/6.png"
+        ];
+        return sourceArr;
+    }
+    new lb.Loader(getSource(), {
+        onLoading: function(cur, total) {
+            $('#loading-txt').html(parseInt(cur / total * 100) + '%');
+            $('.progress-green').css({
+                'width': parseInt(cur / total * 100) + '%'
+            });
+            $('.progress-green-light').css({
+                'width': parseInt(cur / total * 100) + '%',
+                'box-shadow': '0 0 ' + parseInt(cur / total * 100) / 10 + 'px' + ' rgb(0, 211, 255)'
+            });
+            var progressWidth = $('.progress-bar').width() - 30;
+            $('.loading-ele').css({
+                'left': parseInt(cur / total * 100) / 100 * progressWidth + 'px'
+            });
+        },
+        onComplete: function() {
+            main();
+             $('.hm-page').addClass('hm-hide');
+        },
+        loadType: 1,
+        minTime: 50
+    });
+//主函数
+    function main() {
+    	gotoPart(4);
+        setTimeout(function() {
+            $("#loader").fadeOut(500);
+            $('.hm-page').eq(0).addClass('active');
+        }, 500);
+
+        //page1
+        var score = 0;
+        var game;
+        $('.page1-btn-1').on('touchstart',function(){
+        	console.log(2);
+        	gotoPart(2);
+        	game  = new Game();
+        	game.gamestart();
+        	game.on('gameover',function(s){
+        		console.log(score);
+        		score = s;
+        		$('.score').html(s);
+
+        		if(score<200){
+        			$('.info').html('你的分数不够哦，请再接再厉~');
+        			$('.page3-btn-1').find('p').html('再来一次');
+        		}else{
+        			$('.info').html('你获得制作录取通知书的机会！');
+        			$('.page3-btn-1').find('p').html('马上制作');
+        		}
+        		gotoPart(3);
+        	});
+        	game.on('loading',function(p){
+        		console.log(p);
+        		$('.progressing').html(p);
+        	})
+        	game.on('loaded',function(){
+        		$('.loading').hide();
+        	})
+        })
+        //page3
+        $('.page3-btn-1').on('touchstart',function(){
+        	if(score<200){
+        		gotoPart(2);
+        		game.restart();
+        		score = 0;
+        	}else{
+        		gotoPart(4);
+        	}
+        	
+        })
+        //page4
+        String.prototype.trim=function() {
+			    return this.replace(/(^\s*)|(\s*$)/g,'');
+		}
+        var tlimit = 8; //字数限制
+		$('.form').find('input').on('keyup', function() {
+			var s = tlimit - $(this).val().length;
+			if (s <= 0) {
+				$(this).get(0).value = $(this).get(0).value.substring(0, tlimit);
+			}
+		});
+        $('.page4-btn-1').on('touchstart',function(){
+        	var isOk = checkForm();
+        	if(!isOk){
+        		alert('请完善信息');
+        		return false;
+        	}
+        	var yname = $('#yname').val(),
+        		pname = $('#pname').val(),
+        		sname = $('#sname').val(),
+        		tname = $('#tname').val();
+        	var canvasPro = new CanvasPro({
+        		'name':[yname,pname,sname,tname],
+        	});
+        	var overlay1 = new lb.Overlay({content:'生成中，请稍等'});
+        	
+        })
+        //gotoPart
+		function gotoPart(i){
+			$('.hm-page').slideOut(1000).removeClass('active');
+			$('.hm-page').eq(i-1).slideIn(1000).addClass('active');
+		}
+		function checkForm(){
+			var isOk = false;
+			$('.form').find('input[type=text]').each(function(){
+				var val = $(this).val();
+
+				if(val.trim() == ''||val.trim() == ' '){
+					isOk = false;
+				}
+				else{
+					isOk = true;
+				}
+			});
+			
+			return isOk;
+		};
+		
+    }
+    </script>
+</body>
+
+</html>
